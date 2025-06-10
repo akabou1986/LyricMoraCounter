@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歌詞モーラカウンター</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/build/kuromoji.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>歌詞モーラカウンター</h1>
+        <p>歌詞を入力すると、各行のモーラ数を表示します。「しゃ」「にゅ」「っ」などは1音として数えます。</p>
+        
+        <div class="editor-container">
+            <textarea v-model="lyricsInput" @input="updateCountsThrottled" placeholder="ここに歌詞を入力してください..."></textarea>
+            <div class="results-container">
+                <h2>モーラ数</h2>
+                <div v-if="lines.length > 0">
+                    <ul>
+                        <li v-for="(line, index) in lines" :key="index">
+                            <span class="lyric-line">{{ line.text }}</span>
+                            <span class="mora-count">{{ line.moras.join(' / ') }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div v-else>
+                    <p>歌詞が入力されていません。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="loading-indicator" v-if="isLoadingKuromoji">
+            <p>辞書データを読み込み中です...</p>
+        </div>
+
+        <footer>
+            <p>Powered by Vue.js and kuromoji.js</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
