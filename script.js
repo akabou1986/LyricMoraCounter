@@ -14,7 +14,7 @@ const app = Vue.createApp({
             this.isLoadingKuromoji = true;
             try {
                 this.tokenizer = await new Promise((resolve, reject) => {
-                    kuromoji.builder({ dicPath: this.kuromojiPath }).build((err, tokenizer) => {
+                    kuromoji.builder({ dicPath: './dict' }).build((err, tokenizer) => {
                         if (err) {
                             console.error('Kuromoji initialization error:', err);
                             reject(err);
