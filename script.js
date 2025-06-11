@@ -126,6 +126,13 @@ const app = Vue.createApp({
             if (results) {
                 results.scrollTop = lyrics.scrollTop;
             }
+        },
+        copyLyrics() {
+            navigator.clipboard.writeText(this.lyricsInput).then(() => {
+                alert('歌詞をコピーしました');
+            }).catch(err => {
+                console.error('Clipboard copy failed:', err);
+            });
         }
     },
     watch: {

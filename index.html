@@ -14,7 +14,10 @@
         <p>歌詞を入力すると、各行のモーラ数を表示します。「しゃ」「にゅ」「っ」などは1音として数えます。<br>「？」や「！」、「＆」などはカウントしません。ひらがなやカタカナで入力してください。</p>
         
         <div class="editor-container">
-            <textarea v-model="lyricsInput" ref="lyricsArea" @input="updateCountsThrottled" @scroll="syncScroll" placeholder="ここに歌詞を入力してください..."></textarea>
+            <div class="lyrics-container">
+                <textarea v-model="lyricsInput" ref="lyricsArea" @input="updateCountsThrottled" @scroll="syncScroll" placeholder="ここに歌詞を入力してください..."></textarea>
+                <button class="copy-btn" @click="copyLyrics">歌詞をコピー</button>
+            </div>
             <div class="results-container" ref="resultsArea">
                 <div v-if="lines.length > 0">
                     <ul>
