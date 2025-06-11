@@ -58,6 +58,11 @@ const app = Vue.createApp({
             const yoonModifiers = 'ァィゥェォャュョヮ'; // 拗音などを形成する小さいカタカナ
 
             tokens.forEach(token => {
+                // モーラに含めない無音記号をスキップ
+                if (token.pos === '記号' && token.surface_form !== 'ー') {
+                    return; // continue forEach
+                }
+
                 let reading = token.reading;
                 let effectiveStringToCount = ""; // モーラ計算の対象となるカタカナ文字列
 

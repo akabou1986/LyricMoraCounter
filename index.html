@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <h1>歌詞モーラカウンター</h1>
-        <p>歌詞を入力すると、各行のモーラ数を表示します。「しゃ」「にゅ」「っ」などは1音として数えます。</p>
+        <p>歌詞を入力すると、各行のモーラ数を表示します。「しゃ」「にゅ」「っ」などは1音として数えます。<br>「？」や「！」、「＆」などはカウントしません。ひらがなやカタカナで入力してください。</p>
         
         <div class="editor-container">
             <textarea v-model="lyricsInput" ref="lyricsArea" @input="updateCountsThrottled" @scroll="syncScroll" placeholder="ここに歌詞を入力してください..."></textarea>
