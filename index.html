@@ -14,13 +14,11 @@
         <p>歌詞を入力すると、各行のモーラ数を表示します。「しゃ」「にゅ」「っ」などは1音として数えます。</p>
         
         <div class="editor-container">
-            <textarea v-model="lyricsInput" @input="updateCountsThrottled" placeholder="ここに歌詞を入力してください..."></textarea>
-            <div class="results-container">
-                <h2>モーラ数</h2>
+            <textarea v-model="lyricsInput" ref="lyricsArea" @input="updateCountsThrottled" @scroll="syncScroll" placeholder="ここに歌詞を入力してください..."></textarea>
+            <div class="results-container" ref="resultsArea">
                 <div v-if="lines.length > 0">
                     <ul>
                         <li v-for="(line, index) in lines" :key="index">
-                            <span class="lyric-line">{{ line.text }}</span>
                             <span class="mora-count">{{ line.moras.join(' / ') }}</span>
                         </li>
                     </ul>

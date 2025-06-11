@@ -5,16 +5,22 @@ const app = Vue.createApp({
             lines: [],
             tokenizer: null,
             isLoadingKuromoji: true,
-            kuromojiPath: 'https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/dict/', // Path to dictionary files
             updateTimeout: null
         };
     },
     methods: {
         async initializeKuromoji() {
             this.isLoadingKuromoji = true;
+
+            // file:// で開いた場合はブラウザのセキュリティ制限により XHR が失敗するため
+            // CDN の辞書を使い、HTTP/HTTPS でホストされている場合はローカル辞書を使う
+            const dicPath = (location.protocol === 'file:'
+                ? 'https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/dict'
+                : './dict');
+
             try {
                 this.tokenizer = await new Promise((resolve, reject) => {
-                    kuromoji.builder({ dicPath: './dict' }).build((err, tokenizer) => {
+                    kuromoji.builder({ dicPath }).build((err, tokenizer) => {
                         if (err) {
                             console.error('Kuromoji initialization error:', err);
                             reject(err);
@@ -108,6 +114,13 @@ const app = Vue.createApp({
             this.updateTimeout = setTimeout(() => {
                 this.processLines();
             }, 250); // Adjust delay as needed (e.g., 250ms)
+        },
+        syncScroll() {
+            const lyrics = this.$refs.lyricsArea;
+            const results = this.$refs.resultsArea;
+            if (results) {
+                results.scrollTop = lyrics.scrollTop;
+            }
         }
     },
     watch: {
