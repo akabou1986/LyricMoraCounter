@@ -21,6 +21,17 @@
 -   Vue.js (v3)
 -   kuromoji.js
 
+## 使用ライブラリとライセンス (Libraries and Licenses)
+
+このプロジェクトは、以下のオープンソースライブラリを使用しています。
+This project uses the following open-source libraries.
+
+- **Vue.js**
+  - License: [MIT License](https://github.com/vuejs/core/blob/main/LICENSE)
+
+- **kuromoji.js**
+  - License: [Apache License 2.0](https://github.com/takuyaa/kuromoji.js/blob/master/LICENSE)
+
 ## 使い方
 
 1.  `index.html` ファイルをウェブブラウザで開きます。
