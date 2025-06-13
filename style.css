@@ -38,7 +38,7 @@ p {
 .lyrics-container {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 50%;
 }
 
 .copy-btn {
@@ -66,9 +66,18 @@ textarea {
     font-size: 16px;
     line-height: 1.6;
     font-family: 'Courier New', monospace;
-    resize: vertical;
+    resize: none;
     box-sizing: border-box;
     white-space: pre; /* keep line breaks */
+    /* striped background */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0 1.6em,
+        #f4f7f6 1.6em 3.2em
+    );
+    background-size: 100% 3.2em;
+    background-position: 0 15px; /* offset to account for 15px padding */
+    background-attachment: local; /* stripes scroll with content */
 }
 
 textarea:focus {
@@ -78,11 +87,18 @@ textarea:focus {
 }
 
 .results-container {
-    width: 30%;
+    width: 50%;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background-color: #f9f9f9;
+    border: none;
+    border-radius: 0;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0 1.6em,
+        #f4f7f6 1.6em 3.2em
+    );
+    background-size: 100% 3.2em;
+    background-position: 0 15px;
+    background-attachment: local;
     height: 400px; /* Match textarea height */
     overflow-y: auto; /* Add scroll for long results */
     box-sizing: border-box;
@@ -107,9 +123,10 @@ textarea:focus {
     display: flex;
     align-items: center;
     height: 1.6em; /* match textarea line height */
-    padding: 0 0 0 4px;
-    border-bottom: 1px dashed #eee;
-    font-size: 15px;
+    padding-left: 4px;
+    margin: 0px;
+    font-size: 16px; /* match textarea */
+    font-family: 'Courier New', monospace; /* unify font */
 }
 
 .results-container li:last-child {
@@ -118,11 +135,14 @@ textarea:focus {
 
 .mora-count {
     font-weight: bold;
-    color: #4CAF50;
-    background-color: #e8f5e9;
-    padding: 3px 8px;
-    border-radius: 4px;
+    color: #2c3e50; /* text color */
+    padding: 0 4px;
+    line-height: 1em;
+    border-radius: 0;
+    background: none;
     white-space: nowrap;
+    font-family: 'Courier New', monospace;
+    display: inline-block;
 }
 
 .loading-indicator {
