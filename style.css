@@ -41,8 +41,18 @@ p {
     width: 50%;
 }
 
-.copy-btn {
+.button-row {
+    display: flex;
+    gap: 8px;
+}
+
+.button-row .copy-btn,
+.button-row .clear-btn {
     margin-top: 8px;
+    align-self: flex-start;
+}
+
+.copy-btn {
     padding: 6px 10px;
     font-size: 14px;
     background-color: #4CAF50;
@@ -50,11 +60,25 @@ p {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    align-self: flex-start;
 }
 
 .copy-btn:hover {
     background-color: #45a049;
+}
+
+.clear-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+    background-color: #e53935;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.clear-btn:hover {
+    background-color: #d32f2f;
 }
 
 textarea {

@@ -16,7 +16,10 @@
         <div class="editor-container">
             <div class="lyrics-container">
                 <textarea v-model="lyricsInput" ref="lyricsArea" @input="updateCountsThrottled" @scroll="syncScroll" placeholder="ここに歌詞を入力してください..."></textarea>
-                <button class="copy-btn" @click="copyLyrics">歌詞をコピー</button>
+                <div class="button-row">
+                    <button class="copy-btn" @click="copyLyrics">歌詞をコピー</button>
+                    <button class="clear-btn" @click="clearLyrics">クリア</button>
+                </div>
             </div>
             <div class="results-container" ref="resultsArea">
                 <div v-if="lines.length > 0">

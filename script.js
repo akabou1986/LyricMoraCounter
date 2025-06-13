@@ -1,7 +1,14 @@
 const app = Vue.createApp({
     data() {
         return {
-            lyricsInput: '',
+            lyricsInput: `夕焼小焼の　赤蜻蛉
+負われて見たのは　いつの日か
+山の畑の　桑の実を
+小籠に摘つんだは　幻か
+十五で姐やは　嫁に行き
+お里の便りも　絶え果てた
+夕焼小焼の　赤蜻蛉
+止まっているよ　竿の先`,
             lines: [],
             tokenizer: null,
             isLoadingKuromoji: true,
@@ -30,12 +37,13 @@ const app = Vue.createApp({
                     });
                 });
                 console.log('Kuromoji initialized successfully.');
-                this.processLines(); // Initial count update
+                this.isLoadingKuromoji = false;
+                this.processLines(); // Now tokenizer ready and loading flag off
             } catch (error) {
                 console.error('Failed to initialize Kuromoji:', error);
                 alert('形態素解析エンジンの初期化に失敗しました。ページを再読み込みしてみてください。');
             } finally {
-                this.isLoadingKuromoji = false;
+                if (this.isLoadingKuromoji) this.isLoadingKuromoji = false;
             }
         },
         hiraToKata(str) {
@@ -103,8 +111,13 @@ const app = Vue.createApp({
             }
 
             this.lines = linesArray.map(lineText => {
-                const segments = lineText.split(/[　 ]+/).filter(seg => seg.length > 0); // Split by full-width or half-width spaces and remove empty segments
-                const moras = segments.map(segment => this.countMora(segment));
+                const segments = lineText.split(/[　 ]+/).filter(seg => seg.length > 0); // Split by spaces
+                let moras;
+                if (segments.length === 0) {
+                    moras = [0]; // 空行は0を表示
+                } else {
+                    moras = segments.map(segment => this.countMora(segment));
+                }
                 return {
                     text: lineText,
                     moras: moras
@@ -133,6 +146,10 @@ const app = Vue.createApp({
             }).catch(err => {
                 console.error('Clipboard copy failed:', err);
             });
+        },
+        clearLyrics() {
+            this.lyricsInput = '';
+            this.processLines();
         }
     },
     watch: {
@@ -142,6 +159,8 @@ const app = Vue.createApp({
     },
     mounted() {
         this.initializeKuromoji();
+        // Initial rendering of mora counts with placeholders or cached tokenizer
+        this.processLines();
     }
 });
 
